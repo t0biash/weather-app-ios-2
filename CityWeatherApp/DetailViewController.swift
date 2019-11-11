@@ -47,22 +47,24 @@ class DetailViewController: UIViewController {
     var detailItem: String? { didSet { } }
     
     private func updateView(_ index: Int) {
-        self.lblDate.text = self._weatherResponseData!.consolidatedWeather[index].applicableDate
-        self.lblWeatherState.text = self._weatherResponseData!.consolidatedWeather[index].weatherStateName
-        self.lblTemperature.text = "from \(Int(round(self._weatherResponseData!.consolidatedWeather[index].minTemp!)))°C to \(Int(round(self._weatherResponseData!.consolidatedWeather[index].maxTemp!)))°C"
-        self.lblWind.text = "\(Int(round(self._weatherResponseData!.consolidatedWeather[index].windSpeed!))) mph \(self._weatherResponseData!.consolidatedWeather[index].windDirectionCompass)"
-        self.lblHumidity.text = "\(self._weatherResponseData!.consolidatedWeather[index].humidity!)%"
-        self.lblAirPressure.text = "\(Int(round(self._weatherResponseData!.consolidatedWeather[index].airPressure!))) hPa"
-        self.imgWeatherState.image = self._currentWeatherImage!
+        guard let weatherResponseData = _weatherResponseData, let currentWeatherImage = _currentWeatherImage else { return }
+        
+        self.lblDate.text = weatherResponseData.consolidatedWeather[index].applicableDate
+        self.lblWeatherState.text = weatherResponseData.consolidatedWeather[index].weatherStateName
+        self.lblTemperature.text = "from \(Int(round(weatherResponseData.consolidatedWeather[index].minTemp!)))°C to \(Int(round(weatherResponseData.consolidatedWeather[index].maxTemp!)))°C"
+        self.lblWind.text = "\(Int(round(weatherResponseData.consolidatedWeather[index].windSpeed!))) mph \(weatherResponseData.consolidatedWeather[index].windDirectionCompass)"
+        self.lblHumidity.text = "\(weatherResponseData.consolidatedWeather[index].humidity!)%"
+        self.lblAirPressure.text = "\(Int(round(weatherResponseData.consolidatedWeather[index].airPressure!))) hPa"
+        self.imgWeatherState.image = currentWeatherImage
     }
     
     @IBAction func onPreviousBtnClick(_ sender: UIButton) {
-        guard let _ = self._weatherResponseData?.consolidatedWeather[_currentIndex - 1], let _ = self._currentWeatherImage else { return }
+        guard let weatherResponseData = _weatherResponseData else { return }
         
         _currentIndex -= 1
         btnNext.isEnabled = true
         
-        FetchHelper.getWeatherImage(_weatherResponseData!, _currentIndex) { image in
+        FetchHelper.getWeatherImage(weatherResponseData, _currentIndex) { image in
             self._currentWeatherImage = image
             DispatchQueue.main.async {
                 self.updateView(self._currentIndex)
@@ -75,19 +77,19 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func onNextBtnClick(_ sender: UIButton) {
-        guard let _ = self._weatherResponseData?.consolidatedWeather[_currentIndex + 1], let _ = self._currentWeatherImage else { return }
+        guard let weatherResponseData = _weatherResponseData else { return }
         
         _currentIndex += 1
         btnPrevious.isEnabled = true
         
-        FetchHelper.getWeatherImage(_weatherResponseData!, _currentIndex) { image in
+        FetchHelper.getWeatherImage(weatherResponseData, _currentIndex) { image in
             self._currentWeatherImage = image
             DispatchQueue.main.async {
                 self.updateView(self._currentIndex)
             }
         }
         
-        if _currentIndex + 1 == _weatherResponseData!.consolidatedWeather.count {
+        if _currentIndex + 1 == weatherResponseData.consolidatedWeather.count {
             btnNext.isEnabled = false
         }
     }
