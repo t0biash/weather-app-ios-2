@@ -1,2 +1,2 @@
-# weather-app2
+# CityWeatherApp
 App for AGH UST mobile technology course
