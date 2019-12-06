@@ -24,6 +24,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var btnPrevious: UIButton!
     @IBOutlet weak var btnNext: UIButton!
+    @IBOutlet weak var btnShowMap: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +93,13 @@ class DetailViewController: UIViewController {
         if _currentIndex + 1 == weatherResponseData.consolidatedWeather.count {
             btnNext.isEnabled = false
         }
+    }
+    
+    @IBAction func onShowMapBtnClick(_ sender: UIButton) {
+        guard let city = detailTitle.title else { return }
+        Storage.shared.cityToShowOnMap = city
+        
+        performSegue(withIdentifier: "showMap", sender: self)
     }
 }
 

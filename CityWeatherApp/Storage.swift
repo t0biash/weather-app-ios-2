@@ -11,6 +11,7 @@ import Foundation
 class Storage {
     static let shared: Storage = Storage()
     var cities = ["Warsaw", "London", "Los Angeles"]
+    var cityToShowOnMap: String? = nil
     
     private init() { }
 }

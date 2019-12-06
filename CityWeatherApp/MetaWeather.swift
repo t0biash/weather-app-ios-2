@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 struct MetaWeather {
     static let API_URL = "https://www.metaweather.com/"
     static let LOCATION_ENDPOINT =  "api/location/"
     static let WEATHER_STATE_IMG_ENDPOINT = "static/img/weather/png/64/"
     static let LOCATION_ID_SEARCH_ENDPOINT = "api/location/search/?query="
+    static let LOCATION_LATTLONG_SEARCH_ENDPOINT = "api/location/search/?lattlong="
 }
 
 struct WeatherResponseData:  Codable {
@@ -39,6 +41,26 @@ struct SearchLocationResponseData: Codable {
 }
 
 class FetchHelper {
+    static func get10ClosestCitiesFromSpecifiedLattLong(_ latitude: CLLocationDegrees, _ longtitude: CLLocationDegrees, completion: @escaping ([SearchLocationResponseData])->()) {
+        guard let searchCitiesUrl = URL(string: MetaWeather.API_URL + MetaWeather.LOCATION_LATTLONG_SEARCH_ENDPOINT + String(latitude) + "," + String(longtitude)) else { return }
+        
+        let task = URLSession.shared.dataTask(with: searchCitiesUrl) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            do {
+                let jsonDecoder = JSONDecoder()
+                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                let decodedData = try jsonDecoder.decode([SearchLocationResponseData].self, from: data)
+                
+                return completion(decodedData)
+            }
+            catch let error {
+                print(error)
+            }
+        }
+        task.resume()
+    }
+    
     static func getLocationIdByCityName(_ cityName: String, completion: @escaping (Int)->()) {
         guard let searchLocationUrl = URL(string: MetaWeather.API_URL + MetaWeather.LOCATION_ID_SEARCH_ENDPOINT + cityName.replacingOccurrences(of: " ", with: "+").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else { return }
     
@@ -50,7 +72,12 @@ class FetchHelper {
                 jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
                 let decodedData = try jsonDecoder.decode([SearchLocationResponseData].self, from: data)
                 
-                return completion(decodedData[0].woeid)
+                if decodedData.count > 0 {
+                    return completion(decodedData[0].woeid)
+                }
+                else {
+                    return completion(-1)
+                }
             }
             catch let error {
                 print(error)
@@ -69,7 +96,7 @@ class FetchHelper {
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
                 let decodedData = try jsonDecoder.decode(WeatherResponseData.self, from: data)
-        
+                
                 return completion(decodedData)
             }
             catch let error {

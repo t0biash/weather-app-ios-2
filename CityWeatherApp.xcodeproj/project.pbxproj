@@ -14,8 +14,9 @@
 		188DEF7B23682508002DEC98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188DEF7A23682508002DEC98 /* Assets.xcassets */; };
 		188DEF7E23682508002DEC98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 188DEF7C23682508002DEC98 /* LaunchScreen.storyboard */; };
 		18FC856923715BCA004C807E /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC856823715BCA004C807E /* Storage.swift */; };
-		18FDA84C236F1476001C63ED /* NewCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDA84B236F1476001C63ED /* NewCityView.swift */; };
+		18FDA84C236F1476001C63ED /* NewCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDA84B236F1476001C63ED /* NewCityViewController.swift */; };
 		B54217F023782CC000B95E3D /* MetaWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54217EF23782CC000B95E3D /* MetaWeather.swift */; };
+		B5C7937F2381E8CF00979431 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C7937E2381E8CF00979431 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +29,9 @@
 		188DEF7D23682508002DEC98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		188DEF7F23682508002DEC98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18FC856823715BCA004C807E /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		18FDA84B236F1476001C63ED /* NewCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCityView.swift; sourceTree = "<group>"; };
+		18FDA84B236F1476001C63ED /* NewCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCityViewController.swift; sourceTree = "<group>"; };
 		B54217EF23782CC000B95E3D /* MetaWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaWeather.swift; sourceTree = "<group>"; };
+		B5C7937E2381E8CF00979431 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +64,7 @@
 		188DEF7023682506002DEC98 /* CityWeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				18FDA84B236F1476001C63ED /* NewCityView.swift */,
+				18FDA84B236F1476001C63ED /* NewCityViewController.swift */,
 				188DEF7123682506002DEC98 /* AppDelegate.swift */,
 				188DEF7323682506002DEC98 /* MasterViewController.swift */,
 				188DEF7523682506002DEC98 /* DetailViewController.swift */,
@@ -72,6 +74,7 @@
 				188DEF7F23682508002DEC98 /* Info.plist */,
 				18FC856823715BCA004C807E /* Storage.swift */,
 				B54217EF23782CC000B95E3D /* MetaWeather.swift */,
+				B5C7937E2381E8CF00979431 /* MapViewController.swift */,
 			);
 			path = CityWeatherApp;
 			sourceTree = "<group>";
@@ -147,10 +150,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5C7937F2381E8CF00979431 /* MapViewController.swift in Sources */,
 				188DEF7623682506002DEC98 /* DetailViewController.swift in Sources */,
 				B54217F023782CC000B95E3D /* MetaWeather.swift in Sources */,
 				188DEF7423682506002DEC98 /* MasterViewController.swift in Sources */,
-				18FDA84C236F1476001C63ED /* NewCityView.swift in Sources */,
+				18FDA84C236F1476001C63ED /* NewCityViewController.swift in Sources */,
 				188DEF7223682506002DEC98 /* AppDelegate.swift in Sources */,
 				18FC856923715BCA004C807E /* Storage.swift in Sources */,
 			);
